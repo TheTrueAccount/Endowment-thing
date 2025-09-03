@@ -23,10 +23,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-		'donate',
 		'options'
 	];
 
@@ -34,18 +31,6 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-
-	// tips thing
-	var tipTextMargin:Float = 10;
-	var tipTextScrolling:Bool = false;
-	var tipBackground:FlxSprite;
-	var tipText:FlxText;
-	var tipTimer:FlxTimer = new FlxTimer();
-	var isTweening:Bool = false;
-	var lastString:String = '';
-
-	var tipsArray:Array<String> = [];
-	var canDoTips:Bool = true; // in case the tips don't exist lol
 
 	override function create()
 	{
@@ -66,7 +51,7 @@ class MainMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("Choosing your demise", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
@@ -319,12 +304,6 @@ class MainMenuState extends MusicBeatState
 										FlxG.switchState(StoryMenuState.new);
 									case 'freeplay':
 										FlxG.switchState(FreeplayState.new);
-									#if MODS_ALLOWED
-									case 'mods':
-										FlxG.switchState(ModsMenuState.new);
-									#end
-									case 'awards':
-										LoadingState.loadAndSwitchState(AchievementsMenuState.new);
 									case 'credits':
 										FlxG.switchState(CreditsState.new);
 									case 'options':
